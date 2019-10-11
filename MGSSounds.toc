@@ -1,0 +1,8 @@
+## Interface: 80200
+## Title: MGSSounds
+## Version: v1.0.0
+## Author: PoliteKiwi
+## DefaultState: enabled
+## Notes: Makes things more interesting with Metal Gear Solid sounds
+
+MGSSounds.lua
