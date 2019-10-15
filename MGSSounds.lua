@@ -34,7 +34,6 @@ local MGSSounds = CreateFrame("Frame", "MGSSounds")
 	MGSSounds:RegisterEvent("PLAYER_DEAD")
 
 	MGSSounds:SetScript("OnEvent", function(self, eventName, ...)
-		print(self, eventName, ...)
 		return self[eventName](self, eventName, ...)
 	end)
 
