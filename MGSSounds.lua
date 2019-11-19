@@ -58,10 +58,11 @@ MGSSounds:RegisterEvent("LOOT_OPENED")
 MGSSounds:RegisterEvent("LOOT_SLOT_CLEARED")
 MGSSounds:RegisterEvent("CHAT_MSG_WHISPER")
 
+
 MGSSounds:SetScript("OnEvent", function(self, eventName, ...)
-	print(self, eventName, ...)
 	return self[eventName](self, eventName, ...)
 end)
+
 
 
 function MGSSounds:PLAYER_REGEN_DISABLED(event)
