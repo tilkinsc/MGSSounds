@@ -1,8 +1,9 @@
-## Interface: 80200
+## Interface: 80300
 ## Title: MGSSounds
-## Version: v1.0.0
+## Version: v1.0.1
 ## Author: PoliteKiwi
 ## DefaultState: enabled
+## SavedVariablesPerCharacter: MGSSounds_Vars
 ## Notes: Makes things more interesting with Metal Gear Solid sounds
 
 MGSSounds.lua

@@ -26,6 +26,21 @@
 --]]
 
 
+if(MGSSounds_Vars == nil) then
+	MGSSounds_Vars = {
+		disable = false,
+		combat = false,
+		death = false,
+		tradeopen = false,
+		tradeshow = false,
+		tradestop = false,
+		lootopen = false,
+		lootcollect = false,
+		whisper = false
+	}
+	print("MGSSounds loaded! Welcome! Use `/mgssounds help` for commands.")
+end
+
 local mgsan = "Interface\\AddOns\\MGSSounds\\mgsan.mp3"
 local mgsan_willplay, mgssan_handle
 
@@ -49,6 +64,7 @@ local mgsopen_willplay, mgsopen_handle
 
 
 local MGSSounds = CreateFrame("Frame", "MGSSounds")
+MGSSounds:RegisterEvent("ADDON_LOADED")
 MGSSounds:RegisterEvent("PLAYER_REGEN_DISABLED")
 MGSSounds:RegisterEvent("PLAYER_DEAD")
 MGSSounds:RegisterEvent("TRADE_REQUEST")
@@ -59,25 +75,97 @@ MGSSounds:RegisterEvent("LOOT_SLOT_CLEARED")
 MGSSounds:RegisterEvent("CHAT_MSG_WHISPER")
 
 
-MGSSounds:SetScript("OnEvent", function(self, eventName, ...)
-	return self[eventName](self, eventName, ...)
-end)
+function MGSSounds:Command(msg)
+	
+	-- split message into arguments
+	local args = {string.split(" ", msg)}
+	if(#args < 1) then
+		print("Error: MGSSounds requires at least 1 argument")
+		return
+	end
+	
+	if(args[1] == "help") then
+		print("-- MGSSounds Help --\nhelp - displays this message\ndisable - toggle disable of addon\ncombat - toggle disable of combat sound\ndeath - toggle disable of death sound\ntradeopen - toggle disable of trade open sound\ntradeshow - toggle disable of trade show sound\ntradestop - toggle disable of trade stop sound\nlootopen - toggle disable of loot open sound\nlootcollect - toggle disable of loot collection sound\nwhisper - toggle disable of whisper sound\n\n")
+		return
+	end
+	
+	if(args[1] == "disable") then
+		MGSSounds_Vars.disable = !MGSSounds_Vars.disable
+		return
+	end
+	
+	if(args[1] == "death") then
+		MGSSounds_Vars.death = !MGSSounds_Vars.death
+		return
+	end
+	
+	if(args[1] == "tradeopen") then
+		MGSSounds_Vars.tradeopen = !MGSSounds_Vars.tradeopen
+		return
+	end
+	
+	if(args[1] == "tradeshow") then
+		MGSSounds_Vars.tradeshow = !MGSSounds_Vars.tradeshow
+		return
+	end
+	
+	if(args[1] == "tradestop") then
+		MGSSounds_Vars.tradestop = !MGSSounds_Vars.tradestop
+		return
+	end
+	
+	if(args[1] == "lootopen") then
+		MGSSounds_Vars.lootopen = !MGSSounds_Vars.lootopen
+		return
+	end
+	
+	if(args[1] == "lootcollect") then
+		MGSSounds_Vars.lootcollect = !MGSSounds_Vars.lootcollect
+		return
+	end
+	
+	if(args[1] == "whisper") then
+		MGSSounds_Vars.whisper = !MGSSounds_Vars.whisper
+		return
+	end
+	
+end
 
-
+function MGSSounds:ADDON_LOADED(addon)
+	if(addon ~= "MGSSounds") then
+		return
+	end
+	
+	SlashCmdList["MGSSOUNDS_CMD"] = MGSSounds.Command
+	SLASH_KIWIITEMINFO_CMD1 = "/mgssounds"
+	
+end
 
 function MGSSounds:PLAYER_REGEN_DISABLED(event)
+	if(MGSSounds_Vars.combat == true) then
+		return
+	end
 	mgsan_willplay, mgssan_handle = PlaySoundFile(mgsan, "Master")
 end
 
 function MGSSounds:PLAYER_DEAD(event)
+	if(MGSSounds_Vars.death == true) then
+		return
+	end
 	mgsdeath_willplay, mgsdeath_handle = PlaySoundFile(mgsdeath, "Master")
 end
 
 function MGSSounds:TRADE_REQUEST(event)
+	if(MGSSounds_Vars.tradeopen == true) then
+		return
+	end
 	mgsring_willplay, mgsring_handle = PlaySoundFile(mgsring, "Master")
 end
 
 function MGSSounds:TRADE_SHOW(event)
+	if(MGSSounds_Vars.tradeshow == true) then
+		return
+	end
 	mgsopen_willplay, mgsopen_handle = PlaySoundFile(mgsopen, "Master")
 	if(mgsring_handle == nil) then
 		return
@@ -86,6 +174,9 @@ function MGSSounds:TRADE_SHOW(event)
 end
 
 function MGSSounds:TRADE_REQUEST_CANCEL(event)
+	if(MGSSounds_Vars.tradestop == true) then
+		return
+	end
 	if(mgsring_handle == nil) then
 		return
 	end
@@ -93,13 +184,31 @@ function MGSSounds:TRADE_REQUEST_CANCEL(event)
 end
 
 function MGSSounds:LOOT_OPENED(event)
+	if(MGSSounds_Vars.lootopen == true) then
+		return
+	end
 	mgsdrop_willplay, mgsdrop_handle = PlaySoundFile(mgsdrop, "Master")
 end
 
 function MGSSounds:LOOT_SLOT_CLEARED(event)
+	if(MGSSounds_Vars.lootcollect == true) then
+		return
+	end
 	mgspickup_willplay, mgspickup_handle = PlaySoundFile(mgspickup, "Master")
 end
 
 function MGSSounds:CHAT_MSG_WHISPER(event)
+	if(MGSSounds_Vars.whisper == true) then
+		return
+	end
 	mgsmail_willplay, mgsmail_handle = PlaySoundFile(mgsmail, "Master")
 end
+
+
+MGSSounds:SetScript("OnEvent", function(self, eventName, ...)
+	if(MGSSounds_Vars.disable == true) then
+		return
+	end
+	return self[eventName](self, eventName, ...)
+end)
+
