@@ -90,42 +90,42 @@ function MGSSounds:Command(msg)
 	end
 	
 	if(args[1] == "disable") then
-		MGSSounds_Vars.disable = !MGSSounds_Vars.disable
+		MGSSounds_Vars.disable = not MGSSounds_Vars.disable
 		return
 	end
 	
 	if(args[1] == "death") then
-		MGSSounds_Vars.death = !MGSSounds_Vars.death
+		MGSSounds_Vars.death = not MGSSounds_Vars.death
 		return
 	end
 	
 	if(args[1] == "tradeopen") then
-		MGSSounds_Vars.tradeopen = !MGSSounds_Vars.tradeopen
+		MGSSounds_Vars.tradeopen = not MGSSounds_Vars.tradeopen
 		return
 	end
 	
 	if(args[1] == "tradeshow") then
-		MGSSounds_Vars.tradeshow = !MGSSounds_Vars.tradeshow
+		MGSSounds_Vars.tradeshow = not MGSSounds_Vars.tradeshow
 		return
 	end
 	
 	if(args[1] == "tradestop") then
-		MGSSounds_Vars.tradestop = !MGSSounds_Vars.tradestop
+		MGSSounds_Vars.tradestop = not MGSSounds_Vars.tradestop
 		return
 	end
 	
 	if(args[1] == "lootopen") then
-		MGSSounds_Vars.lootopen = !MGSSounds_Vars.lootopen
+		MGSSounds_Vars.lootopen = not MGSSounds_Vars.lootopen
 		return
 	end
 	
 	if(args[1] == "lootcollect") then
-		MGSSounds_Vars.lootcollect = !MGSSounds_Vars.lootcollect
+		MGSSounds_Vars.lootcollect = not MGSSounds_Vars.lootcollect
 		return
 	end
 	
 	if(args[1] == "whisper") then
-		MGSSounds_Vars.whisper = !MGSSounds_Vars.whisper
+		MGSSounds_Vars.whisper = not MGSSounds_Vars.whisper
 		return
 	end
 	

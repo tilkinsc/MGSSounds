@@ -1,6 +1,6 @@
-## Interface: 80300
+## Interface: 90100
 ## Title: MGSSounds
-## Version: v1.2.0
+## Version: v1.2.1
 ## Author: PoliteKiwi
 ## DefaultState: enabled
 ## SavedVariablesPerCharacter: MGSSounds_Vars
